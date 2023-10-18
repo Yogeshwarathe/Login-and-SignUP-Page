@@ -1,27 +1,34 @@
 module.exports = (app,urlencodedParser,Function_call,knex,jwt,cookieParser)=>{
     app.post('/login',urlencodedParser,async(req,res)=>{
         if(req.body.Gmail != undefined && req.body.Password != undefined){
-            // console.log(req.body);
-            
-            knex
-                .select("*")
-                .from('UserInfo')
-                .where("Gmail",req.body.Gmail)
-                .then((RowsData) => {
-                    // console.log(RowsData);
-                    if(RowsData[0] != undefined){
-                        if(RowsData[0].Password == req.body.Password){
-                            console.log("Login susessful");
-                            res.end(JSON.stringify("login susessful"));
-                        }else{
-                            res.end(JSON.stringify("wrong password "));
-                        }
-                    }else{
-                        res.end(JSON.stringify("go to SinUp page"))
-                    }
-            })
+            var TokenCookies = req.cookies.token;
+            // console.log(TokenCookies);
+            jwt.verify(TokenCookies,"SECRETKEY",(err, verifiedJwt) => {
+                if(err){
+                    res.send(err.message);
+                    console.log(err);
+                }else{
+                    // console.log(verifiedJwt);
+                    knex
+                        .select("*")
+                        .from('UserInfo')
+                        .where("Gmail",verifiedJwt)
+                        .then((RowsData)=>{
+                            console.log(RowsData);
+                            if(RowsData != undefined){
+                                if(RowsData[0].Password == req.body.Password){
+                                    res.send(RowsData);
+                                }else{
+                                    res.send("Wrong Password")
+                                }
+                            }else{
+                                res.send("Time Over, Going to sing up page");
+                            }
+                        })
+                }
+              })
         }else{
-            res.end(JSON.stringify("undifind user gmail and password"));
+            res.send(JSON.stringify("undifind user gmail and password"));
         }
     })
 }

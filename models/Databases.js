@@ -1,14 +1,14 @@
 const env = require('dotenv').config()
-// console.log(process.env.PASSWORD);
+
 
 //This is need for database open
 var knex = require('knex')({
     client: 'mysql',
     connection: {
         host: '127.0.0.1',
-        user: 'root',
-        password: process.env.DB_password,
-        database: "DB"
+        user: process.env.MYSQL_PORT,
+        password: process.env.PASSWORD,
+        database: process.env.DATABASE_NAME
     }
 })
 

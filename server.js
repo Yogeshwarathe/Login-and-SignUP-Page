@@ -34,7 +34,7 @@ app.use("/",login);
 require("./Routes/login")(login,urlencodedParser,Function_call,knex,jwt,cookieParser)
 
 
-var server = app.listen(process.env.Server_port,function(){
+var server = app.listen(process.env.Server_number,function(){
     var host = server.address().address;
     var port = server.address().port;
     console.log("http://127.0.0.1:",port,"/process_get");

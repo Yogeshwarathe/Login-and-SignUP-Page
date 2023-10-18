@@ -1,9 +1,5 @@
 module.exports = (app,urlencodedParser,Function_call,knex,jwt,cookieParser)=>{
     app.post('/singup',urlencodedParser,async(req,res)=>{
-        var gmail1 = req.body.Gmail;
-        var NewToken = Function_call.Token_janreter_fun(gmail1,jwt)
-            // console.log("token",NewToken);
-
         if(req.body.Name != undefined && req.body.Gmail != undefined && req.body.Number != undefined && req.body.Password != undefined){
             knex
                 .select("*")
@@ -19,7 +15,11 @@ module.exports = (app,urlencodedParser,Function_call,knex,jwt,cookieParser)=>{
                         knex('UserInfo')
                             .insert(req.body)
                             .then(()=>{
-                                Function_call.send_token_to_cookies(res,NewToken);
+                                var gmail1 = req.body.Gmail;
+                                var token = jwt.sign(gmail1,"SECRETKEY")
+                                res.cookie('token', token, { maxAge: 900000, httpOnly: true });
+                                // res.send('Cookie set');
+                                Function_call.login_page_function(res)
                                 console.log("Sign Up sucsesfull")
                                 // res.end(JSON.stringify("Sign Up sucsesfull"));
                             })
