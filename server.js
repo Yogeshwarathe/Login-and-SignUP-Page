@@ -33,6 +33,10 @@ var login = express.Router();
 app.use("/",login);
 require("./Routes/login")(login,urlencodedParser,Function_call,knex,jwt,cookieParser)
 
+var forget_password = express.Router();
+app.use("/",forget_password);
+require("./Routes/forget_password")(forget_password,urlencodedParser,Function_call,knex,jwt,cookieParser)
+
 
 var server = app.listen(process.env.Server_number,function(){
     var host = server.address().address;
