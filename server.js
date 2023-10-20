@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require('cookie-parser');
 
 
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
@@ -36,6 +37,10 @@ require("./Routes/login")(login,urlencodedParser,Function_call,knex,jwt,cookiePa
 var forget_password = express.Router();
 app.use("/",forget_password);
 require("./Routes/forget_password")(forget_password,urlencodedParser,Function_call,knex,jwt,cookieParser)
+
+var verifiyOTP_forgotPassword = express.Router();
+app.use("/",verifiyOTP_forgotPassword);
+require("./Routes/verifiyOTP_forgotPassword")(verifiyOTP_forgotPassword,urlencodedParser,Function_call,knex,jwt,cookieParser)
 
 
 var server = app.listen(process.env.Server_number,function(){
