@@ -2,9 +2,9 @@ module.exports = {
     development: {
       client: 'mysql2',
       connection: {
-        database: "DB",
-        user: "root",
-        password: "Password@123",
+        database: process.env.DATABASE_NAME,
+        user: process.env.MYSQL_PORT,
+        password: process.env.PASSWORD,
       },
       migrations: {
         directory: './db/migrations', // Set the directory where your migration files will be stored
