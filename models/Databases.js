@@ -1,9 +1,9 @@
 const env = require('dotenv').config()
 
 
-//This is need for database open
+// This is need for database open
 var knex = require('knex')({
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
         host: '127.0.0.1',
         user: process.env.MYSQL_PORT,
@@ -11,6 +11,21 @@ var knex = require('knex')({
         database: process.env.DATABASE_NAME
     }
 })
+
+
+
+// const knex = require('knex')({
+//     client: 'mysql', // Use the appropriate database client
+//     connection: {
+//       host:  '127.0.0.1',
+//       user: process.env.MYSQL_PORT
+//     },
+//     password:{
+//         password: process.env.PASSWORD,
+//         database: process.env.DATABASE_NAME
+//     },
+//   });
+  
 
 
 
@@ -45,4 +60,4 @@ var knex = require('knex')({
 
 
 
-module.exports = knex;
+// module.exports = knex;
