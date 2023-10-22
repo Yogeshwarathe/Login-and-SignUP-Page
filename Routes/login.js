@@ -14,10 +14,12 @@ module.exports = (app,urlencodedParser,Function_call,knex,jwt,cookieParser)=>{
                         .from('UserInfo')
                         .where("Gmail",verifiedJwt)
                         .then((RowsData)=>{
-                            console.log(RowsData);
+                            // console.log(RowsData);
                             if(RowsData != undefined){
                                 if(RowsData[0].Password == req.body.Password){
                                     res.send(RowsData);
+                                    console.log("login sussesfull ")
+
                                 }else{
                                     res.send("Wrong Password")
                                 }

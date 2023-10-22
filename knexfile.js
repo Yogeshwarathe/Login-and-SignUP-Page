@@ -4,7 +4,7 @@ module.exports = {
       connection: {
         database: "DB",
         user: "root",
-        password: "********",
+        password: "Password@123",
       },
       migrations: {
         directory: './db/migrations', // Set the directory where your migration files will be stored
