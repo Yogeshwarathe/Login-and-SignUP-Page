@@ -1,3 +1,5 @@
+const env = require('dotenv').config()
+
 module.exports = {
     development: {
       client: 'mysql2',
@@ -13,5 +15,4 @@ module.exports = {
     // use to migration
     // npx knex migrate:make migration_name
   };
-
 
